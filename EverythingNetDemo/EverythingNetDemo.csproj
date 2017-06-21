@@ -36,11 +36,8 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Dragablz, Version=0.0.3.186, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dragablz.0.0.3.186\lib\net45\Dragablz.dll</HintPath>
-    </Reference>
     <Reference Include="EverythingNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\EverythingNet.1.0.75\lib\EverythingNet.dll</HintPath>
+      <HintPath>..\packages\EverythingNet.1.0.80\lib\EverythingNet.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -108,6 +105,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "C:\Users\jamsellem.DOLABS\Documents\Visual Studio 2017\Projects\WinFinder\packages\EverythingNet.1.0.75/content" "C:\Users\jamsellem.DOLABS\Documents\Visual Studio 2017\Projects\WinFinder\WinFinder\bin\x64\$(ConfigurationName)\" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "D:\Perso\code\EverythingNetDemo\packages\EverythingNet.1.0.80/content" "D:\Perso\code\EverythingNetDemo\EverythingNetDemo\bin\x64\Release\" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>
