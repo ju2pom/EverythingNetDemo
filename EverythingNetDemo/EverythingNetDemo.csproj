@@ -108,6 +108,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "D:\Perso\code\EverythingNetDemo\packages\EverythingNet.1.0.85/content" "D:\Perso\code\EverythingNetDemo\EverythingNetDemo\bin\x64\Release\" /Y</PostBuildEvent>
+    <PostBuildEvent>xcopy "D:\code\EverythingNetDemo\packages\EverythingNet.1.0.85/content" "D:\Perso\code\EverythingNetDemo\EverythingNetDemo\bin\x64\$(ConfigurationName)\" /Y</PostBuildEvent>
   </PropertyGroup>
 </Project>

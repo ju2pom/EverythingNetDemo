@@ -63,10 +63,24 @@
                 </StackPanel>
               </DataTemplate>
               <DataTemplate DataType="{x:Type local:DateViewModel}">
-                <StackPanel Orientation="Horizontal">
-                  <DatePicker Text="From" />
-                  <DatePicker Text="To" />
-                </StackPanel>
+                <Grid>
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                  </Grid.ColumnDefinitions>
+                  <DatePicker
+                    Grid.Column="0"
+                    Text="From"
+                    BorderThickness="0"
+                    HorizontalAlignment="Left"
+                    />
+                  <DatePicker
+                    Grid.Column="1"
+                    Text="To"
+                    BorderThickness="0"
+                    HorizontalAlignment="Left"
+                    />
+                </Grid>
               </DataTemplate>
             </ContentControl.Resources>
           </ContentControl>
