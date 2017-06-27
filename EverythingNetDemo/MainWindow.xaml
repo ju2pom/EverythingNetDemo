@@ -10,8 +10,10 @@
   Height="350"
   mc:Ignorable="d"
   >
+  <Window.Resources />
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="60" />
       <RowDefinition Height="25" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
@@ -20,17 +22,73 @@
       <ColumnDefinition Width="60" />
     </Grid.ColumnDefinitions>
 
+    <TabControl
+      Grid.ColumnSpan="2"
+      ItemsSource="{Binding QueryCategories}"
+      SelectedItem="{Binding SelectedQueryCategory}"
+      >
+      <TabControl.ItemTemplate>
+        <DataTemplate DataType="{x:Type local:IQueryViewModel}">
+          <TextBlock Text="{Binding Name}" />
+        </DataTemplate>
+      </TabControl.ItemTemplate>
+      <TabControl.ContentTemplate>
+        <DataTemplate>
+          <ContentControl Content="{Binding}">
+            <ContentControl.Resources>
+              <DataTemplate DataType="{x:Type local:NameViewModel}">
+                <StackPanel Orientation="Horizontal">
+                  <TextBlock
+                    VerticalAlignment="Center"
+                    Text="Start with"
+                    />
+                  <TextBox
+                    Width="200"
+                    Height="25"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding StartWith}"
+                    />
+                  <TextBlock
+                    VerticalAlignment="Center"
+                    Text="Endwith"
+                    />
+                  <TextBox
+                    Width="200"
+                    Height="25"
+                    VerticalAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Text="{Binding EndWith}"
+                    />
+                </StackPanel>
+              </DataTemplate>
+              <DataTemplate DataType="{x:Type local:DateViewModel}">
+                <StackPanel Orientation="Horizontal">
+                  <DatePicker Text="From" />
+                  <DatePicker Text="To" />
+                </StackPanel>
+              </DataTemplate>
+            </ContentControl.Resources>
+          </ContentControl>
+        </DataTemplate>
+      </TabControl.ContentTemplate>
+    </TabControl>
+
     <TextBox x:Name="SearchBox"
+      Grid.Row="1"
+      Grid.Column="1"
       Text="{Binding SearchText}"
       />
     <Button x:Name="SearchButton"
+      Grid.Row="1"
       Grid.Column="1"
       Click="SearchButton_OnClick"
       Content="Search"
       />
 
     <ListBox x:Name="ResultList"
-      Grid.Row="1"
+      Grid.Row="2"
+      Grid.Column="0"
       Grid.ColumnSpan="2"
       ItemsSource="{Binding Results}"
       />
