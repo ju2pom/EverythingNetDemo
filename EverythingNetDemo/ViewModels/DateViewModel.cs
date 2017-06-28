@@ -9,6 +9,12 @@ namespace WinFinder
   {
     public event PropertyChangedEventHandler PropertyChanged;
 
+    public DateViewModel()
+    {
+      this.From = DateTime.Today.AddDays(-1);
+      this.To = DateTime.Today;
+    }
+
     public string Name { get { return "Date"; } }
 
     public DateTime? From { get; set; }

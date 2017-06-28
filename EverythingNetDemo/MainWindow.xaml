@@ -10,10 +10,16 @@
   Height="350"
   mc:Ignorable="d"
   >
-  <Window.Resources />
-  <Grid>
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Templates.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
+        <Grid>
     <Grid.RowDefinitions>
-      <RowDefinition Height="60" />
+      <RowDefinition Height="Auto" />
       <RowDefinition Height="25" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
@@ -36,52 +42,7 @@
         <DataTemplate>
           <ContentControl Content="{Binding}">
             <ContentControl.Resources>
-              <DataTemplate DataType="{x:Type local:NameViewModel}">
-                <StackPanel Orientation="Horizontal">
-                  <TextBlock
-                    VerticalAlignment="Center"
-                    Text="Start with"
-                    />
-                  <TextBox
-                    Width="200"
-                    Height="25"
-                    VerticalAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Text="{Binding StartWith}"
-                    />
-                  <TextBlock
-                    VerticalAlignment="Center"
-                    Text="Endwith"
-                    />
-                  <TextBox
-                    Width="200"
-                    Height="25"
-                    VerticalAlignment="Center"
-                    VerticalContentAlignment="Center"
-                    Text="{Binding EndWith}"
-                    />
-                </StackPanel>
-              </DataTemplate>
-              <DataTemplate DataType="{x:Type local:DateViewModel}">
-                <Grid>
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                  </Grid.ColumnDefinitions>
-                  <DatePicker
-                    Grid.Column="0"
-                    Text="From"
-                    BorderThickness="0"
-                    HorizontalAlignment="Left"
-                    />
-                  <DatePicker
-                    Grid.Column="1"
-                    Text="To"
-                    BorderThickness="0"
-                    HorizontalAlignment="Left"
-                    />
-                </Grid>
-              </DataTemplate>
+              
             </ContentControl.Resources>
           </ContentControl>
         </DataTemplate>
