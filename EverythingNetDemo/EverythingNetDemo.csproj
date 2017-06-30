@@ -14,6 +14,8 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFrameworkProfile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -37,7 +39,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EverythingNet, Version=1.0.0.0, Culture=neutral, processorArchitecture=AMD64">
-      <HintPath>..\packages\EverythingNet.1.0.85\lib\EverythingNet.dll</HintPath>
+      <HintPath>..\packages\EverythingNet.1.0.86\lib\EverythingNet.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -97,7 +100,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -111,7 +113,11 @@
     <Content Include="Everything64.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>xcopy "D:\code\EverythingNetDemo\packages\EverythingNet.1.0.85/content" "D:\code\EverythingNetDemo\EverythingNetDemo\bin\x64\$(ConfigurationName)\" /Y</PostBuildEvent>
-  </PropertyGroup>
+  <Import Project="..\packages\EverythingNet.1.0.86\build\EverythingNet.targets" Condition="Exists('..\packages\EverythingNet.1.0.86\build\EverythingNet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Ce projet fait référence à des packages NuGet qui sont manquants sur cet ordinateur. Utilisez l'option de restauration des packages NuGet pour les télécharger. Pour plus d'informations, consultez http://go.microsoft.com/fwlink/?LinkID=322105. Le fichier manquant est : {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\EverythingNet.1.0.86\build\EverythingNet.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EverythingNet.1.0.86\build\EverythingNet.targets'))" />
+  </Target>
 </Project>

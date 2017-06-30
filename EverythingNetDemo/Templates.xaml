@@ -2,30 +2,44 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:WinFinder">
   <DataTemplate DataType="{x:Type local:NameViewModel}">
-    <StackPanel Orientation="Horizontal">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition />
+        <RowDefinition />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      
       <TextBlock
         VerticalAlignment="Center"
         Text="Start with"
         />
       <TextBox
-        Width="200"
+        Grid.Row="1"
         Height="25"
+        Margin="0,0,4,0"
         VerticalAlignment="Center"
         VerticalContentAlignment="Center"
         Text="{Binding StartWith}"
         />
       <TextBlock
+        Grid.Column="1"
+        Margin="4,0,0,0"
         VerticalAlignment="Center"
         Text="Endwith"
         />
       <TextBox
-        Width="200"
+        Grid.Row="1"
+        Grid.Column="1"
         Height="25"
+        Margin="4,0,0,0"
         VerticalAlignment="Center"
         VerticalContentAlignment="Center"
         Text="{Binding EndWith}"
         />
-    </StackPanel>
+    </Grid>
   </DataTemplate>
   <DataTemplate DataType="{x:Type local:DateViewModel}">
     <Grid>

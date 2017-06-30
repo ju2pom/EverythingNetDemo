@@ -20,7 +20,6 @@
         <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto" />
-      <RowDefinition Height="25" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
@@ -29,7 +28,7 @@
     </Grid.ColumnDefinitions>
 
     <TabControl
-      Grid.ColumnSpan="2"
+      BorderThickness="0,1,1,0"
       ItemsSource="{Binding QueryCategories}"
       SelectedItem="{Binding SelectedQueryCategory}"
       >
@@ -40,31 +39,24 @@
       </TabControl.ItemTemplate>
       <TabControl.ContentTemplate>
         <DataTemplate>
-          <ContentControl Content="{Binding}">
-            <ContentControl.Resources>
-              
-            </ContentControl.Resources>
-          </ContentControl>
+          <ContentControl Content="{Binding}" />
         </DataTemplate>
       </TabControl.ContentTemplate>
     </TabControl>
 
-    <TextBox x:Name="SearchBox"
-      Grid.Row="1"
-      Grid.Column="1"
-      Text="{Binding SearchText}"
-      />
     <Button x:Name="SearchButton"
-      Grid.Row="1"
+      Grid.Row="0"
       Grid.Column="1"
+      Margin="4,22,4,4"
       Click="SearchButton_OnClick"
       Content="Search"
       />
 
     <ListBox x:Name="ResultList"
-      Grid.Row="2"
+      Grid.Row="1"
       Grid.Column="0"
       Grid.ColumnSpan="2"
+      BorderThickness="0,1,0,0"
       ItemsSource="{Binding Results}"
       />
   </Grid>
