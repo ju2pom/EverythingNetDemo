@@ -1,7 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:WinFinder">
-  <DataTemplate DataType="{x:Type local:NameViewModel}">
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                    xmlns:vm="clr-namespace:WinFinder.ViewModels"
+                    xmlns:every="clr-namespace:EverythingNet.Query;assembly=EverythingNet"
+                    >
+  <DataTemplate DataType="{x:Type vm:NameViewModel}">
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition />
@@ -41,7 +44,7 @@
         />
     </Grid>
   </DataTemplate>
-  <DataTemplate DataType="{x:Type local:DateViewModel}">
+  <DataTemplate DataType="{x:Type vm:DateViewModel}">
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition />
@@ -80,6 +83,24 @@
         BorderThickness="0"
         VerticalAlignment="Center"
         SelectedDate="{Binding To}"
+        />
+    </Grid>
+  </DataTemplate>
+
+  <ObjectDataProvider x:Key="sizeEnum"
+                      MethodName="GetValues"
+                      ObjectType="{x:Type sys:Enum}"
+                      >
+    <ObjectDataProvider.MethodParameters>
+      <x:Type TypeName="every:Sizes"/>
+    </ObjectDataProvider.MethodParameters>
+  </ObjectDataProvider>
+
+  <DataTemplate DataType="{x:Type vm:SizeViewModel}">
+    <Grid>
+      <ComboBox
+        ItemsSource="{Binding Source={StaticResource sizeEnum}}"
+        SelectedItem="{Binding PredefinedSize}"
         />
     </Grid>
   </DataTemplate>

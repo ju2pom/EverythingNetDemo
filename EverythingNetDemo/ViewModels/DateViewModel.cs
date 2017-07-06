@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using EverythingNet.Interfaces;
 
-namespace WinFinder
+namespace WinFinder.ViewModels
 {
   public class DateViewModel : IQueryViewModel
   {
