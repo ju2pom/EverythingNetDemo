@@ -27,14 +27,14 @@ namespace WinFinder.ViewModels
       {
         return everything
           .Search()
-          .ModificationDate()
+          .ModificationDate
           .Between(this.From.Value, this.To.Value);
       }
       else if (this.From.HasValue)
       {
         return everything
           .Search()
-          .ModificationDate()
+          .ModificationDate
           .Equal(this.From.Value);
       }
 

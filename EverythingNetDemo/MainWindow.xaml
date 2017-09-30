@@ -15,6 +15,11 @@
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Templates.xaml" />
       </ResourceDictionary.MergedDictionaries>
+
+      <DataTemplate x:Key="SearchResultTemplate">
+        <TextBlock Text="{Binding FullPath}" />
+      </DataTemplate>
+
     </ResourceDictionary>
   </Window.Resources>
   <DockPanel LastChildFill="True">
@@ -37,10 +42,10 @@
       </Grid.ColumnDefinitions>
 
       <TabControl
-      BorderThickness="0,1,1,0"
-      ItemsSource="{Binding QueryCategories}"
-      SelectedItem="{Binding SelectedQueryCategory}"
-      >
+        BorderThickness="0,1,1,0"
+        ItemsSource="{Binding QueryCategories}"
+        SelectedItem="{Binding SelectedQueryCategory}"
+        >
         <TabControl.ItemTemplate>
           <DataTemplate DataType="{x:Type local:IQueryViewModel}">
             <TextBlock Text="{Binding Name}" />
@@ -54,20 +59,21 @@
       </TabControl>
 
       <Button x:Name="SearchButton"
-      Grid.Row="0"
-      Grid.Column="1"
-      Margin="4,22,4,4"
-      Command="{Binding SearchCommand}"
-      Content="Search"
-      />
+        Grid.Row="0"
+        Grid.Column="1"
+        Margin="4,22,4,4"
+        Command="{Binding SearchCommand}"
+        Content="Search"
+        />
 
       <ListBox x:Name="ResultList"
-      Grid.Row="1"
-      Grid.Column="0"
-      Grid.ColumnSpan="2"
-      BorderThickness="0,1,0,0"
-      ItemsSource="{Binding Results}"
-      />
+        Grid.Row="1"
+        Grid.Column="0"
+        Grid.ColumnSpan="2"
+        BorderThickness="0,1,0,0"
+        ItemTemplate="{StaticResource SearchResultTemplate}"
+        ItemsSource="{Binding Results}"
+        />
     </Grid>
   </DockPanel>
 </Window>

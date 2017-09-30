@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using EverythingNet.Interfaces;
 
@@ -19,7 +18,8 @@ namespace WinFinder.ViewModels
     public IQueryable GetQueryable(IEverything everything)
     {
       return everything.Search()
-        .Size().Equal(this.PredefinedSize);
+        .Size
+        .Equal(this.PredefinedSize);
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

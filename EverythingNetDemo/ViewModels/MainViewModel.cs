@@ -9,17 +9,20 @@ using System.Runtime.CompilerServices;
 using System;
 
 using System.Diagnostics;
+using EverythingNet.Interfaces;
 
 namespace WinFinder.ViewModels
 {
   public class MainViewModel : INotifyPropertyChanged
   {
     private long processingTime;
+    private IEverything everything;
 
     public MainViewModel()
     {
+      this.everything = new Everything();
       this.QueryCategories = new ObservableCollection<IQueryViewModel> { new NameViewModel(), new DateViewModel(), new SizeViewModel() };
-      this.Results = new ObservableCollection<string>();
+      this.Results = new ObservableCollection<ISearchResult>();
       this.SearchCommand = new RelayCommand(this.SearchExecute);
     }
     public event PropertyChangedEventHandler PropertyChanged;
@@ -28,7 +31,7 @@ namespace WinFinder.ViewModels
 
     public IQueryViewModel SelectedQueryCategory { get; set; }
 
-    public int ResultCount { get { return this.Results.Count; } }
+    public long ResultCount { get; private set; }
 
     public long ProcessingTime
     {
@@ -40,7 +43,7 @@ namespace WinFinder.ViewModels
       }
     }
 
-    public ObservableCollection<string> Results { get; }
+    public ObservableCollection<ISearchResult> Results { get; }
 
     public ICommand SearchCommand { get; }
 
@@ -54,18 +57,18 @@ namespace WinFinder.ViewModels
       this.ProcessingTime = 0;
       Stopwatch stopwatch = new Stopwatch();
       stopwatch.Start();
-      var everything = new Everything();
-      var nameQueryable = this.SelectedQueryCategory.GetQueryable(everything);
+      var queryable = this.SelectedQueryCategory.GetQueryable(everything);
 
+      this.everything.Reset();
       this.Results.Clear();
-      foreach (var result in nameQueryable)
+      foreach (var result in queryable)
       {
         this.Results.Add(result);
       }
       stopwatch.Stop();
 
       this.ProcessingTime = stopwatch.ElapsedMilliseconds;
-
+      this.ResultCount = queryable.Count;
       this.OnPropertyChanged(nameof(this.ResultCount));
     }
 

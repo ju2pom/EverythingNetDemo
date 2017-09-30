@@ -10,19 +10,14 @@ namespace WinFinder.ViewModels
 
     public string Name { get { return "Name"; } }
 
-    public string StartWith { get; set; }
-
-    public string EndWith { get; set; }
+    public string Pattern { get; set; }
 
     public IQueryable GetQueryable(IEverything everything)
     {
       return everything
         .Search()
-        .Name()
-        .StartWith(this.StartWith)
-        .And
-        .Name()
-        .EndWith(this.EndWith);
+        .Name
+        .Contains(this.Pattern);
 
     }
 
