@@ -1,30 +1,34 @@
 ﻿using System.Collections.Generic;
-using System.ComponentModel;
 using System.Collections.ObjectModel;
-
-using EverythingNet.Core;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using Common.MvvM;
-using System.Runtime.CompilerServices;
-using System;
-
-using System.Diagnostics;
+using EverythingNet.Core;
 using EverythingNet.Interfaces;
 
 namespace WinFinder.ViewModels
 {
   public class MainViewModel : INotifyPropertyChanged
   {
+    private readonly object collectionLock = new object();
+    private readonly IEverything everything;
+
     private long processingTime;
-    private IEverything everything;
 
     public MainViewModel()
     {
-      this.everything = new Everything();
-      this.QueryCategories = new ObservableCollection<IQueryViewModel> { new NameViewModel(), new DateViewModel(), new SizeViewModel() };
-      this.Results = new ObservableCollection<ISearchResult>();
-      this.SearchCommand = new RelayCommand(this.SearchExecute);
+      everything = new Everything();
+      QueryCategories =
+        new ObservableCollection<IQueryViewModel> {new NameViewModel(), new DateViewModel(), new SizeViewModel()};
+      Results = new ObservableCollection<ISearchResult>();
+      BindingOperations.EnableCollectionSynchronization(Results, collectionLock);
+      SearchCommand = new RelayCommand(SearchExecute);
     }
+
     public event PropertyChangedEventHandler PropertyChanged;
 
     public IEnumerable<IQueryViewModel> QueryCategories { get; }
@@ -35,11 +39,11 @@ namespace WinFinder.ViewModels
 
     public long ProcessingTime
     {
-      get { return this.processingTime; }
+      get { return processingTime; }
       set
       {
-        this.processingTime = value;
-        this.OnPropertyChanged();
+        processingTime = value;
+        OnPropertyChanged();
       }
     }
 
@@ -50,26 +54,26 @@ namespace WinFinder.ViewModels
     private void SearchExecute(object parameter)
     {
       if (!EverythingState.IsStarted())
-      {
         EverythingState.StartService(true, EverythingState.StartMode.Service);
-      }
 
-      this.ProcessingTime = 0;
-      Stopwatch stopwatch = new Stopwatch();
+      ProcessingTime = 0;
+      var stopwatch = new Stopwatch();
       stopwatch.Start();
-      var queryable = this.SelectedQueryCategory.GetQueryable(everything);
+      var queryable = SelectedQueryCategory.GetQueryable(everything);
 
-      this.everything.Reset();
-      this.Results.Clear();
-      foreach (var result in queryable)
+      everything.Reset();
+      Results.Clear();
+      Task.Factory.StartNew(() =>
       {
-        this.Results.Add(result);
-      }
-      stopwatch.Stop();
+        foreach (var result in queryable)
+          Results.Add(result);
+        stopwatch.Stop();
 
-      this.ProcessingTime = stopwatch.ElapsedMilliseconds;
-      this.ResultCount = queryable.Count;
-      this.OnPropertyChanged(nameof(this.ResultCount));
+        ProcessingTime = stopwatch.ElapsedMilliseconds;
+        ResultCount = queryable.Count;
+        OnPropertyChanged(nameof(ResultCount));
+        OnPropertyChanged(nameof(Results));
+      });
     }
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
